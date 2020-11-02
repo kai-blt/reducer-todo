@@ -1,32 +1,17 @@
 import React, { useState, useReducer } from 'react';
-
-const initialToDoItems = {
-    list: []
-}
-
-const reducer = (state, action) => {
-    switch(action.type) {
-        case 'ADD_TODO':
-            return { ...state, list: [...state.list, action.payload] };
-            console.log(state)
-        default:
-            return state;
-    }
-}
+import reducer from './reducers'
+import { ADD_TODO, UPDATE_INPUT, handleInput, handleClick } from './actions'
 
 
 export default function ToDoList(props) {
-    const [toDoInput, setToDoInput] = useState('')
-    const [state, dispatch] = useReducer(reducer, initialToDoItems)
-
-    const handleChange = (e) => {
-        setToDoInput(e.target.value);
+    //initial state
+    const initialState = {
+        current_input: '',
+        list: []
     }
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        dispatch({ type: 'ADD_TODO', payload: toDoInput });
-    }
+    //useReducer hook
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
         <div>
@@ -35,14 +20,18 @@ export default function ToDoList(props) {
                     <input 
                         type="text"
                         name="todo"
-                        value={toDoInput}
-                        onChange={handleChange}
+                        value={state.current_input}
+                        onChange={(e) => dispatch(handleInput(e))}
                     />
-                    <button onClick={handleClick}>Add</button>
+                    <button onClick={(e) => dispatch(handleClick(e, state.current_input))}>Add</button>
                     <button>Clear Completed</button>
-                </label>
-                
+                </label>                
             </form>
+            {state.list.length > 0 ?
+                'Theres a list'
+            :
+                'no list'
+            }
         </div>
     )
 }
