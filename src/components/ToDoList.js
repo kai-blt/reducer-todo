@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import reducer from './reducers'
-import { ADD_TODO, UPDATE_INPUT, handleInput, handleClick } from './actions'
+import { handleInput, handleClick } from './actions'
 
 
 export default function ToDoList(props) {
