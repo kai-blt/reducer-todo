@@ -1,7 +1,7 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import reducer from './reducers'
-import { handleInput, handleClick } from './actions'
-
+import { handleInput, handleClick, setCompleted, clearCompleted } from './actions'
+import ToDoItem from './ToDoItem'
 
 export default function ToDoList(props) {
     //initial state
@@ -24,13 +24,13 @@ export default function ToDoList(props) {
                         onChange={(e) => dispatch(handleInput(e))}
                     />
                     <button onClick={(e) => dispatch(handleClick(e, state.current_input))}>Add</button>
-                    <button>Clear Completed</button>
+                    <button onClick={(e) => dispatch(clearCompleted(e, state.list))}>Clear Completed</button>
                 </label>                
             </form>
             {state.list.length > 0 ?
-                'Theres a list'
+                state.list.map(item => <ToDoItem key={item.id} item={item.item} id={item.id} completed={item.completed} setCompleted={(e) => dispatch(setCompleted(e, item.id, state.list))}/>)
             :
-                'no list'
+                'Please add some To Do Items!'
             }
         </div>
     )
