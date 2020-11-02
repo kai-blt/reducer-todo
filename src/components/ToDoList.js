@@ -51,7 +51,7 @@ export default function ToDoList(props) {
     return (
         <div>
             <StyledForm>
-                <label><h1>TO DO</h1><br/>
+                <label><h1>TO DO LIST (USING REDUCERS)</h1><br/>
                     <input 
                         type="text"
                         name="todo"
@@ -65,7 +65,7 @@ export default function ToDoList(props) {
             {state.list.length > 0 ?
                 state.list.map(item => <ToDoItem key={item.id} item={item.item} id={item.id} completed={item.completed} setCompleted={(e) => dispatch(setCompleted(e, item.id, state.list))}/>)
             :
-                'Please add some To Do Items!'
+                <h2>*** Please add some To Do Items! ***</h2>
             }
         </div>
     )
