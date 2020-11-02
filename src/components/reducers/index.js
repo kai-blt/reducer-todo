@@ -9,9 +9,9 @@ const reducer = (state, action) => {
         case ADD_TODO:
             return { ...state, list: [...state.list, action.payload] };
         case SET_COMPLETED:
-            return { ...state, list: [...state.list, action.payload] };
+            return { ...state, list: action.payload };
         case CLEAR_COMPLETED:
-            return { ...state, list: [...state.list, action.payload] };
+            return { ...state, list: action.payload };
         default:
             return state;
     }

@@ -26,16 +26,22 @@ export const setCompleted = (e, id, list) => {
     e.preventDefault();
     const updatedList = list.map(item => {
         if (item.id === id) {
-            item.completed = !item.completed;
+         item.completed = !item.completed;
         }
+        return item;
     })
 
+    console.log(updatedList)
     return({ type: SET_COMPLETED, payload: updatedList });
 }
 
 export const clearCompleted = (e, list) => {
     e.preventDefault();
-    const clearedList = list.map(item => item.completed === false);
-
+    const clearedList = list.filter(item => {
+        if (!item.completed) {
+            return item;
+        } 
+    });
+    console.log(clearedList)
     return({ type: CLEAR_COMPLETED, payload: clearedList });
 }
